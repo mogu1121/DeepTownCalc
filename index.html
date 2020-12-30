@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Deep Town Calc</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+	<link rel="stylesheet" type="text/css" href="css.css">
+	<script type="text/javascript" src="materials.js" defer></script>
+	<script type="text/javascript" src="mines.js" defer></script>
+	<script type="text/javascript" src="dtc.js" defer></script>
+
+</head>
+<body>
+	<div class="grid">
+
+		<h1>Deep Town Calc</h1>
+		<div id="info">
+			<p>DTC will help you make stuff faster!  You enter what you want to make, how much you want, and how many mines you have.  It will tell you where to place your mines, as well as how many of each material (and, if applicable, how long) it will require.</p>
+			<p>In the "Everything You Need" list, the number in [brackets] represents the number of assigned stations of that type.  You can add smelting, crafting, etc. stations by clicking the plus sign (+).  To help indicate bottlenecks, the longest time in the list will appear in <span class="bottleneck">red</span>.</p>
+			<p>In the last column, enter your current inventory of the materials you need.</p>
+			<p>To keep things clear, coal smelted from trees is called "charcoal."</p>
+			<p>If you're morbidly curious about how this site works, <a href="https://www.github.com/bdmayhem/DeepTownCalc">check out the repo</a>.</p>
+		</div>
+
+		<form id="form">
+			<div class="item-needs">
+				<li class="item"><label>项目 </label><select class="what" placeholder="What do you want to build?" name="stuff" oninput="submitButton()"></select></li>
+				<li class="quantity"><label>数量 </label><input type="number" min="0" class="how-many" value="100" oninput="submitButton()"></li>
+			</div>
+			<li><button class="more" type="button">制作更多材料</button></li>
+			<li><label>采矿站 </label><input type="number" min="0" id="mines" value="20" oninput="submitButton()"></li>
+			<li><label>当前区域 </label><input type="number" min="0" id="area" value="120" oninput="submitButton()"></li>
+      <li id="coal-source"><div id="mining">采矿站</div><div id="source">机器人采集</div><div id="trees">木</div></li>
+			<li id="coal-slider"> 
+				<span id="coal">100</span>
+				<input id="slider" type="range" min="0" max="100" value="0" oninput="showValue(this.value)" />
+				<span id="charcoal">0</span>
+			</li>
+			
+		</form>
+
+		<div id="mine-results">
+			<div id="result"><h3 class="center">矿区</h3></div>
+			<div id="sorted-by-area" class="hidden"></div>
+		</div>
+		<div id="needs"><h3 class="center">所需物品</h3></div>
+		<div id="inventory">
+			<div id="inv-head">
+				<h3 class="center">当前库存</h3>
+				<button id="show-all" type="button">显示全部</button>
+				<button id="hide" class="hidden" type="button">隐藏不需要的库存</button>
+			</div>
+		</div>
+	</div>
+	
+	<footer class="center">
+		<a href="https://bdmayhem.github.io/" class="footer">Made by BD</a>
+	</footer>
+</body>
+</html>
