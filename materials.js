@@ -24,7 +24,7 @@ const materials = [
     name: "翡翠",
     source: "采矿站"
   }, {
-    name: "platinum",
+    name: "铂",
     source: "采矿站"
   }, {
     name: "黄玉",
@@ -54,7 +54,7 @@ const materials = [
     name: "黑曜石",
     source: "采矿站"
   }, {
-    name: "helium3",
+    name: "氦3",
     source: "采矿站"
   }, {
     name: "铀棒",
@@ -331,12 +331,12 @@ const materials = [
       }
     ]
   }, {
-    name: "magnetiteBar",
+    name: "磁铁矿条",
     source: "冶炼",
     time: "60",
     toMake: [
       {
-        thing: "magnetiteOre",
+        thing: "磁矿石",
         quantity: "5"
       }
     ]
@@ -645,13 +645,13 @@ const materials = [
       }
     ]
   }, {
-    name: "magnet",
+    name: "磁铁",
     source: "制作",
     time: "120",
     value: "69000",
     toMake: [
       {
-        thing: "magnetiteBar",
+        thing: "磁铁矿条",
         quantity: "1"
       }
     ]
@@ -668,7 +668,7 @@ const materials = [
         thing: "铝棒",
         quantity: "20"
       }, {
-        thing: "magnet",
+        thing: "磁铁",
         quantity: "1"
       }
     ]
@@ -894,7 +894,7 @@ const materials = [
       }
     ]
   }, {
-    name: "magnetiteOre",
+    name: "磁矿石",
     source: "化学",
     time: "360",
     value: "400",
@@ -923,7 +923,7 @@ const materials = [
         thing: "压缩机",
         quantity: "1"
       }, {
-        thing: "helium3",
+        thing: "氦3",
         quantity: "100"
       }
     ]
