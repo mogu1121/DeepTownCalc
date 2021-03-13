@@ -23,6 +23,7 @@ function restore(item, input) {
 
     item.options[index].selected = true;
     input.value = quantity;
+    input.oninput();
   }
 }
 
