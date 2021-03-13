@@ -8,7 +8,7 @@ function get_current_options_index(ele) {
 
 function save(item, input) {
   const index = get_current_options_index(item);
-  const quantity = Number.parseInt(input.value);
+  const quantity = Number.parseInt(input.value) || 0;
 
   const data = { index, quantity };
 
