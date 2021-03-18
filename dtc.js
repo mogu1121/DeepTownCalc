@@ -8,7 +8,6 @@ const noTime = ["采矿站", "商店", "水收集器", "油泵"];
 //set up select options
 const select = document.getElementsByClassName("what");
 for (let i = 0; i < select.length; i++) {
-
   materials.sort(function (a, b) {
     if (a.name > b.name) {
       return 1;
@@ -39,20 +38,36 @@ materials.sort(function (a, b) {
 for (let i = 0; i < materials.length; i++) {
   //source headings
   if (i === 0 || i > 0 && materials[i].source != materials[i - 1].source) {
-    document.getElementById("needs").insertAdjacentHTML("beforeend", "<h3 class='hidden center'><span class='mat' data-source='" + materials[i].source + "' />" + materials[i].source + "</h3>");
-    document.getElementById("inventory").insertAdjacentHTML("beforeend", "<h3 class='hidden center'><span class='inv' data-source='" + materials[i].source + "' />" + materials[i].source + "</h3>");
+    document.getElementById("needs").insertAdjacentHTML(
+      "beforeend",
+      "<h3 class='hidden center'><span class='mat' data-source='" +
+        materials[i].source + "' />" + materials[i].source + "</h3>",
+    );
+    document.getElementById("inventory").insertAdjacentHTML(
+      "beforeend",
+      "<h3 class='hidden center'><span class='inv' data-source='" +
+        materials[i].source + "' />" + materials[i].source + "</h3>",
+    );
   }
 
   //build inventory div
-  const inv = '<li class="hidden"><label class="invLabel">' + materials[i].name + ' </label><input name="' + materials[i].name + '" type="number" min="0" class="inv" form="form" oninput="submitButton()"></li>';
+  const inv = '<li class="hidden"><label class="invLabel">' +
+    materials[i].name + ' </label><input name="' + materials[i].name +
+    '" type="number" min="0" class="inv" form="form" oninput="submitButton()"></li>';
   document.getElementById("inventory").insertAdjacentHTML("beforeend", inv);
 
   //materials list
   let mat = "";
   if (!noTime.includes(materials[i].source)) {
-    mat = '<li class="hidden" data-source="' + materials[i].source + '"><span class="quantity"></span> ' + materials[i].name + ' <span class="time mat" data-name="' + materials[i].name + '"></span>&nbsp;&nbsp;&nbsp;<span class="plus">\n+</span> [<span class="number"></span>] <span class="minus">-</span></li>';
+    mat = '<li class="hidden" data-source="' + materials[i].source +
+      '"><span class="quantity"></span> ' + materials[i].name +
+      ' <span class="time mat" data-name="' + materials[i].name +
+      '"></span>&nbsp;&nbsp;&nbsp;<span class="plus">\n+</span> [<span class="number"></span>] <span class="minus">-</span></li>';
   } else {
-    mat = '<li class="hidden" data-source="' + materials[i].source + '"><span class="quantity"></span> ' + materials[i].name + ' <span class="time mat" data-name="' + materials[i].name + '"></span>&nbsp;&nbsp;&nbsp;<span class="plus hidden">+ [</span><span class="number hidden"></span><span class="minus hidden">] -</span></li>';
+    mat = '<li class="hidden" data-source="' + materials[i].source +
+      '"><span class="quantity"></span> ' + materials[i].name +
+      ' <span class="time mat" data-name="' + materials[i].name +
+      '"></span>&nbsp;&nbsp;&nbsp;<span class="plus hidden">+ [</span><span class="number hidden"></span><span class="minus hidden">] -</span></li>';
   }
 
   document.getElementById("needs").insertAdjacentHTML("beforeend", mat);
@@ -62,7 +77,6 @@ for (let i = 0; i < materials.length; i++) {
   const numbers = document.getElementsByClassName("number");
   const plus = document.getElementsByClassName("plus");
   let num = numbers[numbers.length - 1];
-
 
   if (!num.innerHTML) {
     num.innerHTML = 1;
@@ -103,7 +117,8 @@ function submitButton() {
       let matchCounter = 0;
       for (let j = itemArray.length - 1; j >= 0; j--) {
         if (itemArray[j].name === item.name) {
-          itemArray[j].quantity = parseFloat(itemArray[j].quantity) + parseFloat(item.quantity);
+          itemArray[j].quantity = parseFloat(itemArray[j].quantity) +
+            parseFloat(item.quantity);
           break;
         } else {
           matchCounter++;
@@ -145,11 +160,11 @@ function makeInputNeeds(availableMines, maxArea) {
 
 function makeThese(stuff, quant) {
   //check the coal source slider
-  if (stuff === "coal") {
+  if (stuff === "煤炭") {
     const coalRatio = document.getElementById("coal").innerHTML;
     const coalQuant = Math.ceil(quant * coalRatio / 100);
     if (quant - coalQuant) {
-      makeThese("charcoal", Math.ceil(quant * (100 - coalRatio) / 100));
+      makeThese("煤炭", Math.ceil(quant * (100 - coalRatio) / 100));
     }
     quant = coalQuant;
   }
@@ -196,8 +211,10 @@ function makeThese(stuff, quant) {
       let matchCounter = 0;
       for (let i = needsList.length - 1; i >= 0; i--) {
         if (needsList[i].name === material.name) {
-          needsList[i].batches = parseInt(needsList[i].batches) + parseInt(quant);
-          needsList[i].quantity = parseInt(needsList[i].quantity) + parseInt(quant);
+          needsList[i].batches = parseInt(needsList[i].batches) +
+            parseInt(quant);
+          needsList[i].quantity = parseInt(needsList[i].quantity) +
+            parseInt(quant);
           break;
         } else {
           matchCounter++;
@@ -237,9 +254,9 @@ function findMines(maxArea, availableMines) {
             sortingMines.push(Object.assign({}, mine));
             sortingMines[sortingMines.length - 1].howMuch = mine[toMine];
 
-            miningNeed.totalMinable = parseFloat(miningNeed.totalMinable) + parseFloat(mine[toMine]);
+            miningNeed.totalMinable = parseFloat(miningNeed.totalMinable) +
+              parseFloat(mine[toMine]);
             minableSum += parseFloat(mine[toMine]);
-
           } else {
             let found;
             let i;
@@ -252,14 +269,16 @@ function findMines(maxArea, availableMines) {
             }
 
             if (found) {
-              sortingMines[i].howMuch = parseFloat(sortingMines[i].howMuch) + parseFloat(mine[toMine]);
-              miningNeed.totalMinable = parseFloat(miningNeed.totalMinable) + parseFloat(mine[toMine]);
+              sortingMines[i].howMuch = parseFloat(sortingMines[i].howMuch) +
+                parseFloat(mine[toMine]);
+              miningNeed.totalMinable = parseFloat(miningNeed.totalMinable) +
+                parseFloat(mine[toMine]);
               minableSum += parseFloat(mine[toMine]);
-
             } else {
               sortingMines.push(Object.assign({}, mine));
               sortingMines[sortingMines.length - 1].howMuch = mine[toMine];
-              miningNeed.totalMinable = parseFloat(miningNeed.totalMinable) + parseFloat(mine[toMine]);
+              miningNeed.totalMinable = parseFloat(miningNeed.totalMinable) +
+                parseFloat(mine[toMine]);
               minableSum += parseFloat(mine[toMine]);
             }
           }
@@ -279,9 +298,12 @@ function miningAlgorithm(availableMines, minableSum, needSum, minableNeeds) {
         miningNeed.percentOfTotalMinable = miningNeed.totalMinable / minableSum;
 
         if (miningNeed.hasOwnProperty("runningSum")) {
-          miningNeed.weightedNeed = (parseFloat(miningNeed.quantity) / needSum * availableMines * 100) - parseFloat(miningNeed.runningSum);
+          miningNeed.weightedNeed =
+            (parseFloat(miningNeed.quantity) / needSum * availableMines * 100) -
+            parseFloat(miningNeed.runningSum);
         } else {
-          miningNeed.weightedNeed = (parseFloat(miningNeed.quantity) / needSum * availableMines * 100);
+          miningNeed.weightedNeed =
+            (parseFloat(miningNeed.quantity) / needSum * availableMines * 100);
         }
 
         if (miningNeed.weightedNeed < 0) {
@@ -296,14 +318,15 @@ function miningAlgorithm(availableMines, minableSum, needSum, minableNeeds) {
         }
 
         weightedNeedSum += parseFloat(miningNeed.weightedNeed);
-
       }
     });
 
     needsList.forEach(function (miningNeed) {
       if (miningNeed.source === "采矿站") {
-        miningNeed.percentofWeightedNeed = parseFloat(miningNeed.weightedNeed) / weightedNeedSum;
-        miningNeed.priority = parseFloat(miningNeed.percentofWeightedNeed) / parseFloat(miningNeed.percentOfTotalMinable);
+        miningNeed.percentofWeightedNeed = parseFloat(miningNeed.weightedNeed) /
+          weightedNeedSum;
+        miningNeed.priority = parseFloat(miningNeed.percentofWeightedNeed) /
+          parseFloat(miningNeed.percentOfTotalMinable);
       } else {
         miningNeed.priority = 0;
       }
@@ -325,12 +348,18 @@ function miningAlgorithm(availableMines, minableSum, needSum, minableNeeds) {
     if (i >= availableMines - minableNeeds) {
       checkForOrphanNeeds:
       for (let j = 0; j < needsList.length; j++) {
-        if (needsList[j].source === "采矿站" && !needsList[j].hasOwnProperty("checked")) {
+        if (
+          needsList[j].source === "采矿站" &&
+          !needsList[j].hasOwnProperty("checked")
+        ) {
           needsList[j].checked = true;
           let matchCounter = 0;
           checkAgainstMines:
           for (let k = 0; k < sortingMines.length; k++) {
-            if (sortingMines[k].hasOwnProperty(needsList[j].name) && sortingMines[k].hasOwnProperty("order")) {
+            if (
+              sortingMines[k].hasOwnProperty(needsList[j].name) &&
+              sortingMines[k].hasOwnProperty("order")
+            ) {
               break checkForOrphanNeeds;
             } else {
               matchCounter++;
@@ -360,16 +389,23 @@ function chooseMine(orderIndex) {
   for (let l = 0; l < needsList.length; l++) {
     getMatchingMine:
     for (let m = 0; m < sortingMines.length; m++) {
-      if (sortingMines[m].hasOwnProperty(needsList[l].name) && sortingMines[m].howMuch > 0) {
+      if (
+        sortingMines[m].hasOwnProperty(needsList[l].name) &&
+        sortingMines[m].howMuch > 0
+      ) {
         sortingMines[m].order = orderIndex;
         sortingMines[m].howMuch = 0;
         needsList.forEach(function (miningNeed) {
           if (miningNeed.source === "采矿站") {
             if (sortingMines[m].hasOwnProperty(miningNeed.name)) {
               if (miningNeed.hasOwnProperty("runningSum")) {
-                miningNeed.runningSum += parseFloat(sortingMines[m][miningNeed.name]);
+                miningNeed.runningSum += parseFloat(
+                  sortingMines[m][miningNeed.name],
+                );
               } else {
-                miningNeed.runningSum = parseFloat(sortingMines[m][miningNeed.name]);
+                miningNeed.runningSum = parseFloat(
+                  sortingMines[m][miningNeed.name],
+                );
               }
             }
           }
@@ -397,7 +433,8 @@ function displayMines(sortedMines) {
     // Click to sort mines by area
     resultDiv.innerHTML = "<p>点击按区域号排序</p>";
     sortedMines.forEach(function (e) {
-      content = "<li>区域&nbsp;<span class='area-priority'>" + e.area + "</span></li>";
+      content = "<li>区域&nbsp;<span class='area-priority'>" + e.area +
+        "</span></li>";
       resultDiv.insertAdjacentHTML("beforeend", content);
     });
 
@@ -429,16 +466,20 @@ function displayNeeds() {
   const matDiv = document.getElementsByClassName("mat");
   const invDiv = document.getElementsByClassName("inv");
 
-
   for (let i = 0; i < needsList.length; i++) {
     for (let j = 0; j < matDiv.length; j++) {
       if (needsList[i].name === matDiv[j].dataset.name) {
+        const bottleneck = Math.max.apply(
+          Math,
+          needsList.map(function (e) {
+            return Math.ceil(
+              parseInt(e.batches) * parseInt(e.time) / e.stations,
+            );
+          }),
+        );
 
-        const bottleneck = Math.max.apply(Math, needsList.map(function (e) {
-          return Math.ceil(parseInt(e.batches) * parseInt(e.time) / e.stations);
-        }));
-
-        const qu = Math.ceil(needsList[i].quantity / needsList[i].stations).toLocaleString("en-us");
+        const qu = Math.ceil(needsList[i].quantity / needsList[i].stations)
+          .toLocaleString("en-us");
         const st = needsList[i].name;
 
         matDiv[j].classList.remove("bottleneck");
@@ -453,8 +494,9 @@ function displayNeeds() {
           let timeStr = "";
 
           if (!noTime.includes(needsList[i].source)) {
-
-            ti = Math.ceil(needsList[i].time / needsList[i].stations * needsList[i].batches);
+            ti = Math.ceil(
+              needsList[i].time / needsList[i].stations * needsList[i].batches,
+            );
             if (ti === bottleneck) {
               matDiv[j].classList.add("bottleneck");
             }
@@ -484,7 +526,8 @@ function displayNeeds() {
             });
 
             if (time[0] > 0) {
-              timeStr = "&nbsp;- " + time[0] + ":" + time[1] + ":" + time[2] + ":" + time[3];
+              timeStr = "&nbsp;- " + time[0] + ":" + time[1] + ":" + time[2] +
+                ":" + time[3];
             } else if (time[1] > 0) {
               timeStr = "&nbsp;- " + time[1] + ":" + time[2] + ":" + time[3];
             } else {
@@ -493,7 +536,6 @@ function displayNeeds() {
           }
           matDiv[j].innerHTML = timeStr;
         }
-
       }
       if (matDiv[j].dataset.source === needsList[i].source) {
         matDiv[j].parentNode.classList.remove("hidden");
@@ -507,16 +549,24 @@ document.querySelector(".more").addEventListener("click", addForm);
 
 function addForm() {
   if (document.querySelectorAll(".item-needs").length > 1) {
-    document.querySelector(".item-needs").removeChild(document.querySelector(".delete-button"));
+    document.querySelector(".item-needs").removeChild(
+      document.querySelector(".delete-button"),
+    );
   }
 
   //clone the form
   const parentForm = document.getElementById("form");
   const item = document.querySelector(".item-needs");
   const itemClone = item.cloneNode(true);
-  let last = document.querySelectorAll(".item-needs")[document.querySelectorAll(".item-needs").length - 1];
+  let last =
+    document.querySelectorAll(
+      ".item-needs",
+    )[document.querySelectorAll(".item-needs").length - 1];
   parentForm.insertBefore(itemClone, last.nextSibling);
-  last = document.querySelectorAll(".item-needs")[document.querySelectorAll(".item-needs").length - 1];
+  last =
+    document.querySelectorAll(
+      ".item-needs",
+    )[document.querySelectorAll(".item-needs").length - 1];
 
   addDeleteButton(item);
   addDeleteButton(last);
@@ -535,7 +585,9 @@ function addDeleteButton(where) {
     where.parentNode.removeChild(where);
     //delete button from first form
     if (document.querySelectorAll(".item-needs").length === 1) {
-      document.querySelector(".item-needs").removeChild(document.querySelector(".delete-button"));
+      document.querySelector(".item-needs").removeChild(
+        document.querySelector(".delete-button"),
+      );
     }
     submitButton();
   });
@@ -557,13 +609,15 @@ function showValue(newValue) {
 document.getElementById("show-all").addEventListener("click", showAll);
 
 function showAll() {
-  Array.prototype.map.call(document.getElementsByClassName("inv"), function (e) {
-    e.parentNode.classList.remove("hidden");
-  });
+  Array.prototype.map.call(
+    document.getElementsByClassName("inv"),
+    function (e) {
+      e.parentNode.classList.remove("hidden");
+    },
+  );
 
   document.getElementById("show-all").classList.add("hidden");
   document.querySelector("#hide").classList.remove("hidden");
-
 }
 
 document.getElementById("hide").addEventListener("click", hide);
