@@ -227,6 +227,7 @@ li#coal-source {
 
 .minus, .plus {
   cursor: pointer;
+  user-select: none;
 }
 
 .bottleneck {
