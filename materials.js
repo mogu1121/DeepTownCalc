@@ -387,6 +387,17 @@ const materials = [
     ],
   },
   {
+    name: "钢管",
+    source: "冶炼",
+    time: "60",
+    toMake: [
+      {
+        thing: "铁盘子",
+        quantity: "1"
+      }
+    ]
+  },
+  {
     name: "磁铁矿条",
     source: "冶炼",
     time: "60",
