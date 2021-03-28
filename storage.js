@@ -1,5 +1,5 @@
 function get_current_options_index(ele) {
-  for (let i = 0, len = ele.options.length; i < len; i++) {
+  for (let i = 0; i < ele.options.length; i++) {
     if (ele.options[i].selected) {
       return i;
     }
